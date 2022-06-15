@@ -25,6 +25,11 @@ function UserList() {
       id: 3,
       username: "liz",
       email: "liz@example.com"
+    },
+    {
+      id: 4,
+      username: "spiderman",
+      email: "spiderman@marble.com"
     }
   ];
   return (
