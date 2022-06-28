@@ -17,7 +17,7 @@ function App() {
     });
   };
 
-  const users = [
+  const [users, setUsers] = useState([
     {
       id: 1,
       username: "velopert",
@@ -33,17 +33,31 @@ function App() {
       username: "liz",
       email: "liz@example.com"
     }
-  ];
+  ]);
 
   const nextId = useRef(4);
   const onCreate = () => {
     // 나중에 구현 할 배열에 항목 추가하는 로직
+    const user = {
+      id: nextId.current,
+      username,
+      email
+    };
+    setUsers(users.concat(user));
+
     setInputs({
       username: "",
       email: ""
     });
     nextId.current += 1;
   };
+
+  const onRemove = (id) => {
+    // user.id가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열 만듦
+    // = user.id가 id인 것을 제거
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
   return (
     <>
       <CreateUser
@@ -52,7 +66,7 @@ function App() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />
+      <UserList users={users} onRemove={onRemove} />
     </>
   );
 }
