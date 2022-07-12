@@ -14,16 +14,13 @@ function App() {
     email: ""
   });
   const { username, email } = inputs;
-  const onChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setInputs({
-        ...inputs,
-        [name]: value
-      });
-    },
-    [inputs]
-  );
+  const onChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setInputs((inputs) => ({
+      ...inputs,
+      [name]: value
+    }));
+  }, []);
 
   const [users, setUsers] = useState([
     {
@@ -63,25 +60,19 @@ function App() {
     nextId.current += 1;
   };
 
-  const onRemove = useCallback(
-    (id) => {
-      // user.id가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열 만듦
-      // = user.id가 id인 것을 제거
-      setUsers(users.filter((user) => user.id !== id));
-    },
-    [users]
-  );
+  const onRemove = useCallback((id) => {
+    // user.id가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열 만듦
+    // = user.id가 id인 것을 제거
+    setUsers(users.filter((user) => user.id !== id));
+  }, []);
 
-  const onToggle = useCallback(
-    (id) => {
-      setUsers(
-        users.map((user) =>
-          user.id === id ? { ...user, active: !user.active } : user
-        )
-      );
-    },
-    [users]
-  );
+  const onToggle = useCallback((id) => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  }, []);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
